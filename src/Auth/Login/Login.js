@@ -2,7 +2,8 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import ExitToAppSharpIcon from "@material-ui/icons/ExitToAppSharp";
 import { Button } from "@material-ui/core";
-import {Link } from 'react-router-dom'
+import {Link } from 'react-router-dom';
+import axios from 'axios';
 import PasswordField from '../Password/Password';
 import '../Login/Login.css';
 export default class extends React.Component{
@@ -17,10 +18,19 @@ OnSubmit= (event) => {
   this.setState({Submit:true})
  if(this.state.username.length!==0&&this.state.password.length!==0)
  {
-  console.log("this data you can use to store in data base",this.state);
-////// yahan sy data base me dalna he 
-        
+  const newTodo = {
+    Email:this.state.username,
+    Password: this.state.password,
+   
+  };
+
+  axios.post('http://localhost:4000/online_tutor_db/Login_Admin', newTodo)
+  .then(() => console.log("api invoked"))
+  .catch(err=>alert(err)); 
  }
+
+        
+ 
   
    
         event.preventDefault();
